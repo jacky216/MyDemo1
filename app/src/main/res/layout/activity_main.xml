@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:wheelSurfView="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:layout_centerHorizontal="true"
+    android:launchMode="singleTask"
+    android:screenOrientation="landscape"
+    tools:context="com.cretin.www.wheelsurfdemo.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+
+        <com.cretin.www.wheelsruflibrary.view.WheelSurfView
+            android:id="@+id/wheelSurfView2"
+            android:layout_width="400dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            wheelSurfView:typenum="-1">
+
+        </com.cretin.www.wheelsruflibrary.view.WheelSurfView>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/qrocde_title"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:textSize="25dp"/>
+
+            <TextView
+                android:id="@+id/tvContent1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/qrocde_attr"
+                android:gravity="center_horizontal"
+                android:layout_margin="20dp"
+                android:textSize="20dp"/>
+
+            <!--<TextView-->
+                <!--android:id="@+id/tvContent2"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/qrocde_attr2"-->
+                <!--android:textSize="30dp"/>-->
+
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                wheelSurfView:srcCompat="@mipmap/qrcode"
+                android:layout_margin="10dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+
+
+
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="#ffffff"-->
+    <!--android:gravity="center"-->
+    <!--android:padding="10dp"-->
+    <!--android:text="自定义模式"-->
+    <!--android:textStyle="bold"/>-->
+
+    <!--&lt;!&ndash;自定义方式&ndash;&gt;-->
+    <!--<com.cretin.www.wheelsruflibrary.view.WheelSurfView-->
+    <!--android:id="@+id/wheelSurfView1"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_margin="20dp"-->
+    <!--wheelSurfView:colors="@array/colors"-->
+    <!--wheelSurfView:deses="@array/names"-->
+    <!--wheelSurfView:goImg="@mipmap/node"-->
+    <!--wheelSurfView:huanImg="@mipmap/yuanhuan"-->
+    <!--wheelSurfView:icons="@array/icons"-->
+    <!--wheelSurfView:minTimes="3"-->
+    <!--wheelSurfView:textColor="#FF0000"-->
+    <!--wheelSurfView:type="1"-->
+    <!--wheelSurfView:typenum="7"-->
+    <!--wheelSurfView:vartime="75">-->
+
+    <!--</com.cretin.www.wheelsruflibrary.view.WheelSurfView>-->
+
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="#ffffff"-->
+    <!--android:gravity="center"-->
+    <!--android:padding="10dp"-->
+    <!--android:text="暴力模式-只配置底盘"-->
+    <!--android:textStyle="bold"/>-->
+    <!--&lt;!&ndash;暴力方式&ndash;&gt;-->
+    <!--<com.cretin.www.wheelsruflibrary.view.WheelSurfView-->
+    <!--android:id="@+id/wheelSurfView"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_margin="20dp"-->
+    <!--wheelSurfView:mainImg="@mipmap/all"-->
+    <!--wheelSurfView:minTimes="3"-->
+    <!--wheelSurfView:type="2"-->
+    <!--wheelSurfView:typenum="7"-->
+    <!--wheelSurfView:vartime="75">-->
+
+    <!--</com.cretin.www.wheelsruflibrary.view.WheelSurfView>-->
+
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="#ffffff"-->
+    <!--android:gravity="center"-->
+    <!--android:padding="10dp"-->
+    <!--android:text="用户通过代码来设置这些属性"-->
+    <!--android:textStyle="bold"/>-->
