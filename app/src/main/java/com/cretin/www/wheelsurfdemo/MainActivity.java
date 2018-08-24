@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+
+
         /**
          * 新增使用代码设置属性的方式
          *
@@ -65,10 +67,10 @@ public class MainActivity extends AppCompatActivity {
          *  这三个方法中的参数长度必须一致 否则会报运行时异常
          */
         //颜色
-        Integer[] colors = new Integer[]{Color.parseColor("#fef9f7"), Color.parseColor("#fbc6a9")
-                , Color.parseColor("#ffdecc"), Color.parseColor("#fbc6a9")
-                , Color.parseColor("#ffdecc"), Color.parseColor("#fbc6a9")
-                , Color.parseColor("#ffdecc")};
+        Integer[] colors = new Integer[]{Color.parseColor("#74B3DA"), Color.parseColor("#FAC664")
+                , Color.parseColor("#91D2DD"), Color.parseColor("#CC633A")
+                , Color.parseColor("#4DA04E"), Color.parseColor("#F9BD4E")
+                , Color.parseColor("#D0673D")};
         //文字
         String[] des = new String[]{"画舫体验券", "谢谢参与", "画舫半价券"
                 , "谢谢参与", "西湖香包", "谢谢参与", "西湖茶包"};
@@ -93,12 +95,14 @@ public class MainActivity extends AppCompatActivity {
         final WheelSurfView wheelSurfView2 = findViewById(R.id.wheelSurfView2);
         WheelSurfView.Builder build = new WheelSurfView.Builder()
                 .setmColors(colors)
-                .setmTextColor(0xFF0000FF)          // 字体颜色
+                .setmTextColor(0xFFFFFFFF)
                 .setmDeses(des)
                 .setmIcons(mListBitmap)
                 .setmHuanImgRes(R.mipmap.yuanhuan)
+                .setmGoImgRes(R.mipmap.node)
                 .setmType(1)
                 .setmTypeNum(7)
+                .setmMinTimes(10)
                 .build();
         wheelSurfView2.setConfig(build);
 
@@ -136,6 +140,42 @@ public class MainActivity extends AppCompatActivity {
                 //抽奖位置
                 int position = new Random().nextInt(7) + 1;
                 wheelSurfView2.startRotate(position);
+            }
+        });
+
+
+        /*暴力模式，只旋转图*/
+        //获取第一个视图
+
+        String[] des1 = new String[]{"画舫体验券", "西湖茶包", "请继续努力", "西湖香包",
+                "要加油哦", "画舫半价券", "谢谢参与" };
+        final WheelSurfView wheelSurfView = findViewById(R.id.wheelSurfView);
+
+//        WheelSurfView.Builder build1 = new WheelSurfView.Builder()
+//                .setmDeses(des)
+//                .setmMinTimes(10)
+//                .build();
+//        wheelSurfView2.setConfig(build1);
+        //添加滚动监听
+        wheelSurfView.setRotateListener(new RotateListener() {
+            @Override
+            public void rotateEnd(int position, String des) {
+                //文字 逆时针顺序命名
+                String[] des1 = new String[]{"画舫体验券", "西湖茶包", "请继续努力", "西湖香包",
+                        "要加油哦", "画舫半价券", "谢谢参与" };
+                Toast.makeText(MainActivity.this,  "  "+des + des1[position-1], Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void rotating(ValueAnimator valueAnimator) {
+
+            }
+
+            @Override
+            public void rotateBefore(ImageView goImg) {
+                int position = new Random().nextInt(7) + 1;
+                wheelSurfView.startRotate(position);
+
             }
         });
     }

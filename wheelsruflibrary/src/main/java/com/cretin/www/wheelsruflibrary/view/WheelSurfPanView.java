@@ -86,7 +86,7 @@ public class WheelSurfPanView extends View {
     //分类数量 如果数量为负数  通过代码设置样式
     private int mTypeNum = 6;
     //每个扇形旋转的时间
-    private int mVarTime = 75;
+    private int mVarTime = 90;
     //文字描述集合
     private String[] mDeses;
     //自定义图标集合
@@ -234,7 +234,7 @@ public class WheelSurfPanView extends View {
                         //文字画笔
                         mTextPaint = new Paint();
                         //设置填充样式
-                        mTextPaint.setStyle(Paint.Style.STROKE);
+                        mTextPaint.setStyle(Paint.Style.FILL);
                         //设置抗锯齿
                         mTextPaint.setAntiAlias(true);
                         //设置边界模糊
@@ -450,10 +450,10 @@ public class WheelSurfPanView extends View {
             }
             //文字大小
             if ( mTextSize == 0 )
-                mTextSize = 14 * getScale();
+                mTextSize = 22 * getScale();
             //文字颜色 默认粉红色
             if ( mTextColor == 0 )
-                mTextColor = Color.parseColor("#ff00ff");
+                mTextColor = Color.parseColor("#ffffff");
 
             if ( mListBitmap.size() != mDeses.length || mListBitmap.size() != mColors.length
                     || mDeses.length != mColors.length ) {
