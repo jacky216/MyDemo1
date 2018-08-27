@@ -22,7 +22,7 @@
             android:id="@+id/wheelSurfView2"
             android:layout_width="350dp"
             android:layout_height="match_parent"
-            android:layout_margin="5dp"
+            android:layout_margin="10dp"
             android:layout_gravity="center_vertical"
             android:visibility="gone"
             wheelSurfView:typenum="-1">
@@ -31,11 +31,12 @@
         <!--暴力方式-->
         <com.cretin.www.wheelsruflibrary.view.WheelSurfView
             android:id="@+id/wheelSurfView"
-            android:layout_width="350dp"
+            android:layout_width="300dp"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
             wheelSurfView:mainImg="@mipmap/all"
             wheelSurfView:goImg="@mipmap/node"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="50dp"
             wheelSurfView:minTimes="12"
             wheelSurfView:type="2"
             wheelSurfView:typenum="7"
