@@ -1,14 +1,18 @@
 package com.cretin.www.wheelsurfdemo;
 
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -21,93 +25,72 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);//无title
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //全屏
-        getWindow().setFlags(WindowManager.LayoutParams. FLAG_FULLSCREEN ,
-                WindowManager.LayoutParams. FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_main);
+    WheelSurfView wheelSurfView2;
+    WheelSurfView wheelSurfView;
+    Button btn ;
+    RotateListener tls;
 
-
-
-
-        /**
-         * 新增使用代码设置属性的方式
-         *
-         * 请注意：
-         *  使用这种方式需要在引入布局文件的时候在布局文件中设置mTypeNums = -1 来告诉我你现在要用代码传入这些属性
-         *  使用这种方式需要在引入布局文件的时候在布局文件中设置mTypeNums = -1 来告诉我你现在要用代码传入这些属性
-         *  使用这种方式需要在引入布局文件的时候在布局文件中设置mTypeNums = -1 来告诉我你现在要用代码传入这些属性
-         *
-         *  重要的事情说三遍
-         *
-         *  例如
-         *  <com.cretin.www.wheelsruflibrary.view.WheelSurfView
-         *      android:id="@+id/wheelSurfView2"
-         *      android:layout_width="match_parent"
-         *      android:layout_height="match_parent"
-         *      wheelSurfView:typenum="-1"
-         *      android:layout_margin="20dp">
-         *
-         *  然后调用setConfig()方法来设置你的属性
-         *
-         * 请注意：
-         *  你在传入所有的图标文件之后需要调用 WheelSurfView.rotateBitmaps() 此方法来处理一下你传入的图片
-         *  你在传入所有的图标文件之后需要调用 WheelSurfView.rotateBitmaps() 此方法来处理一下你传入的图片
-         *  你在传入所有的图标文件之后需要调用 WheelSurfView.rotateBitmaps() 此方法来处理一下你传入的图片
-         *
-         *  重要的事情说三遍
-         *
-         * 请注意：
-         *  .setmColors(colors)
-         *  .setmDeses(des)
-         *  .setmIcons(mListBitmap)
-         *  这三个方法中的参数长度必须一致 否则会报运行时异常
-         */
-        //颜色
-        Integer[] colors = new Integer[]{Color.parseColor("#74B3DA"), Color.parseColor("#FAC664")
-                , Color.parseColor("#91D2DD"), Color.parseColor("#CC633A")
-                , Color.parseColor("#4DA04E"), Color.parseColor("#F9BD4E")
-                , Color.parseColor("#D0673D")};
-        //文字
-        String[] des = new String[]{"画舫体验券", "谢谢参与", "画舫半价券"
-                , "谢谢参与", "西湖香包", "谢谢参与", "西湖茶包"};
-        //图标
-        List<Bitmap> mListBitmap = new ArrayList<>();
+    //颜色
+    Integer[] colors = new Integer[]{Color.parseColor("#74B3DA"), Color.parseColor("#FAC664")
+            , Color.parseColor("#91D2DD"), Color.parseColor("#CC633A")
+            , Color.parseColor("#4DA04E"), Color.parseColor("#F9BD4E")
+            , Color.parseColor("#D0673D")};
+    //文字
+    String[] des = new String[]{"画舫体验券", "谢谢参与", "画舫半价券"
+            , "谢谢参与", "西湖香包", "谢谢参与", "西湖茶包"};
+    //图标
+    List<Bitmap> mListBitmap = new ArrayList<>();
 //        for ( int i = 0; i < colors.length; i++ ) {
 //              mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.coupon));
 //
 //        }
 
-        mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.coupon));
-        mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.thanks));
-        mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.couponhalf));
-        mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.thanks));
-        mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.sachet));
-        mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.thanks));
-        mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.tea));
-        //主动旋转一下图片
-        mListBitmap = WheelSurfView.rotateBitmaps(mListBitmap);
 
-        //获取第三个视图
-        final WheelSurfView wheelSurfView2 = findViewById(R.id.wheelSurfView2);
-        WheelSurfView.Builder build = new WheelSurfView.Builder()
-                .setmColors(colors)
-                .setmTextColor(0xFFFFFFFF)
-                .setmDeses(des)
-                .setmIcons(mListBitmap)
-                .setmHuanImgRes(R.mipmap.yuanhuan)
-                .setmGoImgRes(R.mipmap.node)
-                .setmType(1)
-                .setmTypeNum(7)
-                .setmMinTimes(10)
-                .build();
-        wheelSurfView2.setConfig(build);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);//无title
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //全屏
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_main);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);   //应用运行时，保持屏幕高亮，不锁屏
+        init();
+    }
 
-        //添加滚动监听
-        wheelSurfView2.setRotateListener(new RotateListener() {
+    public void init(){
+        btn = (Button)findViewById(R.id.button);
+        wheelSurfView = findViewById(R.id.wheelSurfView);
+        //wheelSurfView2 = findViewById(R.id.wheelSurfView2);
+
+
+
+//
+//        mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.coupon));
+//        mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.thanks));
+//        mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.couponhalf));
+//        mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.thanks));
+//        mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.sachet));
+//        mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.thanks));
+//        mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.tea));
+//        //主动旋转一下图片
+//        mListBitmap = WheelSurfView.rotateBitmaps(mListBitmap);
+//
+//        //获取第三个视图
+//        WheelSurfView.Builder build = new WheelSurfView.Builder()
+//                .setmColors(colors)
+//                .setmTextColor(0xFFFFFFFF)
+//                .setmDeses(des)
+//                .setmIcons(mListBitmap)
+//                .setmHuanImgRes(R.mipmap.yuanhuan)
+//                .setmGoImgRes(R.mipmap.node)
+//                .setmType(1)
+//                .setmTypeNum(7)
+//                .setmMinTimes(10)
+//                .build();
+//        wheelSurfView2.setConfig(build);
+
+        tls = new RotateListener() {
             @Override
             public void rotateEnd(int position, String des) {
                 Toast.makeText(MainActivity.this, " " + des, Toast.LENGTH_SHORT).show();
@@ -120,28 +103,15 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void rotateBefore(ImageView goImg) {
-//                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-//                builder.setTitle("温馨提示");
-//                builder.setMessage("开始抽奖？");//"确定要花费100积分抽奖？");
-//                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        //抽奖位置
-//                        int position = new Random().nextInt(7) + 1;
-//                        wheelSurfView2.startRotate(position);
-//                    }
-//                });
-//                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                    }
-//                });
-//                builder.show();
                 //抽奖位置
                 int position = new Random().nextInt(7) + 1;
                 wheelSurfView2.startRotate(position);
             }
-        });
+        };
+
+        //添加滚动监听
+        //wheelSurfView.setRotateListener(tls);
+
 
 
         /*暴力模式，只旋转图*/
@@ -149,13 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
         String[] des1 = new String[]{"画舫体验券", "西湖茶包", "请继续努力", "西湖香包",
                 "要加油哦", "画舫半价券", "谢谢参与" };
-        final WheelSurfView wheelSurfView = findViewById(R.id.wheelSurfView);
 
-//        WheelSurfView.Builder build1 = new WheelSurfView.Builder()
-//                .setmDeses(des)
-//                .setmMinTimes(10)
-//                .build();
-//        wheelSurfView2.setConfig(build1);
         //添加滚动监听
         wheelSurfView.setRotateListener(new RotateListener() {
             @Override
@@ -178,6 +142,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = new Random().nextInt(7) + 1;
+                wheelSurfView.startRotate(position);
+            }
+        });
     }
 
     @Override
@@ -191,92 +163,41 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
     }
 
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_DPAD_CENTER:
+            case KeyEvent.KEYCODE_ENTER:
+                //Toast("你按下中间键");
+
+                int position = new Random().nextInt(7) + 1;
+                wheelSurfView.startRotate(position);
+                //Toast.makeText(MainActivity.this,  " 你按下中间键 ", Toast.LENGTH_SHORT).show();
+                break;
+
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+                //Toast("你按下下方向键");
+                break;
+
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                //Toast("你按下左方向键");
+                break;
+
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                //Toast("你按下右方向键");
+                break;
+
+            case KeyEvent.KEYCODE_DPAD_UP:
+                //Toast("你按下上方向键");
+                break;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void Toast(String str){
+        Toast.makeText(MainActivity.this,  "  "+str, Toast.LENGTH_SHORT).show();
+    }
+
 }
 
-
-
-
-//注意点：
-//1、在使用暴利模式的时候，分区个数请务必与你提供的底盘上的分区个数一致，
-//并且，请保证你提供的底图是圆的，背景是透明的，而且每个分区是均等分的
-//2、在使用自定义模式时：请保证文字描述，图标，背景颜色的集合长度是一样的，
-//并且长度与分类个数一致typenum
-//3、重要的事情说三遍
-//    typenum必传
-//    typenum必传
-//    typenum必传
-
-///*        //获取第一个视图
-//        final WheelSurfView wheelSurfView = findViewById(R.id.wheelSurfView);
-//        //添加滚动监听
-//        wheelSurfView.setRotateListener(new RotateListener() {
-//            @Override
-//            public void rotateEnd(int position, String des) {
-//                Toast.makeText(MainActivity.this, "结束了 " + position + "   " + des, Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void rotating(ValueAnimator valueAnimator) {
-//
-//            }
-//
-//            @Override
-//            public void rotateBefore(ImageView goImg) {
-//                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-//                builder.setTitle("温馨提示");
-//                builder.setMessage("确定要花费100积分抽奖？");
-//                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        //模拟位置
-//                        int position = new Random().nextInt(7) + 1;
-//                        wheelSurfView.startRotate(position);
-//                    }
-//                });
-//                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                    }
-//                });
-//                builder.show();
-//
-//            }
-//        });
-//
-//
-//        //获取第二个视图
-//        final WheelSurfView wheelSurfView1 = findViewById(R.id.wheelSurfView1);
-//        //添加滚动监听
-//        wheelSurfView1.setRotateListener(new RotateListener() {
-//            @Override
-//            public void rotateEnd(int position, String des) {
-//                Toast.makeText(MainActivity.this, "结束了 位置：" + position + "   描述：" + des, Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void rotating(ValueAnimator valueAnimator) {
-//
-//            }
-//
-//            @Override
-//            public void rotateBefore(ImageView goImg) {
-//                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-//                builder.setTitle("温馨提示");
-//                builder.setMessage("确定要花费100积分抽奖？");
-//                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        //模拟位置
-//                        int position = new Random().nextInt(7) + 1;
-//                        wheelSurfView1.startRotate(position);
-//                    }
-//                });
-//                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                    }
-//                });
-//                builder.show();
-//
-//            }
-//        });*/
